@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import './App.css';
+import classes from './App.css';
 import Person from './Person/Person';
 
 class App extends Component {
@@ -51,36 +51,38 @@ class App extends Component {
   toggleHandler = () => this.setState({ showPersons: !this.state.showPersons});
 
   render() {
-    const style = {
-      backgroundColor: this.state.showPersons ? 'red' : 'green',
-      font: 'inherit',
-      color: 'white',
-      border: '1px solid blue',
-      padding: '10px',
-      cursor: 'pointer',
-      ':hover': this.state.showPersons ? {
-        color: 'black',
-        backgroundColor: 'salmon'
-      } : {
-        color: 'black',
-        backgroundColor: 'lightgreen'
-      },
-    };
+    // const style = {
+    //   backgroundColor: this.state.showPersons ? 'red' : 'green',
+    //   font: 'inherit',
+    //   color: 'white',
+    //   border: '1px solid blue',
+    //   padding: '10px',
+    //   cursor: 'pointer',
+    //   ':hover': this.state.showPersons ? {
+    //     color: 'black',
+    //     backgroundColor: 'salmon'
+    //   } : {
+    //     color: 'black',
+    //     backgroundColor: 'lightgreen'
+    //   },
+    // };
 
-    const classes = [];
+    const assignedClasses = [];
 
     if(this.state.people.length <= 2) {
-      classes.push('red');
+      assignedClasses.push(classes.red);
     }
     if(this.state.people.length <= 1) {
-      classes.push('bold');
+      assignedClasses.push(classes.bold);
     }
 
+    let buttonStyle = classes.Red;
+
     return (
-        <div className="App">
+        <div className={classes.App}>
           <h1>Hi! This is a react app</h1>
-          <p className={classes.join(' ')}>This is really working!</p>
-          <button style={style} onClick={this.toggleHandler}>Toggle Persons</button>
+          <p className={assignedClasses.join(' ')}>This is really working!</p>
+          <button className={buttonStyle} onClick={this.toggleHandler}>Toggle Persons</button>
           {this.state.showPersons ?
             this.state.people.map((p, index) =>
               <Person
