@@ -1,6 +1,6 @@
-import Person from "./Person/Person";
+import Person from "../components/Persons/Person/Person";
 import React, { useState } from "react";
-import './App.css';
+import '../components/Cockpit/Cockpit.css';
 
 const App = () => {
     const [personState, setPersonState] = useState({

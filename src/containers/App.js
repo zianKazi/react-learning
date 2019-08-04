@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
-import classes from './App.css';
-import Person from './Person/Person';
+import React, {Component, Fragment} from 'react';
+import Persons from '../components/Persons/Persons';
+import Cockpit from '../components/Cockpit/Cockpit';
 
 class App extends Component {
   state = {
@@ -51,49 +51,17 @@ class App extends Component {
   toggleHandler = () => this.setState({ showPersons: !this.state.showPersons});
 
   render() {
-    // const style = {
-    //   backgroundColor: this.state.showPersons ? 'red' : 'green',
-    //   font: 'inherit',
-    //   color: 'white',
-    //   border: '1px solid blue',
-    //   padding: '10px',
-    //   cursor: 'pointer',
-    //   ':hover': this.state.showPersons ? {
-    //     color: 'black',
-    //     backgroundColor: 'salmon'
-    //   } : {
-    //     color: 'black',
-    //     backgroundColor: 'lightgreen'
-    //   },
-    // };
-
-    const assignedClasses = [];
-
-    if(this.state.people.length <= 2) {
-      assignedClasses.push(classes.red);
-    }
-    if(this.state.people.length <= 1) {
-      assignedClasses.push(classes.bold);
-    }
-
-    let buttonStyle = classes.Red;
-
+    const { people, showPersons } = this.state;
     return (
-        <div className={classes.App}>
-          <h1>Hi! This is a react app</h1>
-          <p className={assignedClasses.join(' ')}>This is really working!</p>
-          <button className={buttonStyle} onClick={this.toggleHandler}>Toggle Persons</button>
-          {this.state.showPersons ?
-            this.state.people.map((p, index) =>
-              <Person
-                key={p.key}
-                name={p.name}
-                age={p.age}
-                clickHandler={() => this.deleteHandler(index)}
-                changeHandler={(event) => this.changeHandler(event, p.key)}
-              />) : null
-          }
-        </div>
+        <Fragment>
+          <Cockpit people={people} toggleHandler={this.toggleHandler}/>
+          <Persons
+            showPersons={showPersons}
+            people={people}
+            deleteHandler={this.deleteHandler}
+            changeHandler={this.changeHandler}
+          />
+        </Fragment>
     );
   }
 }
